@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="SharedProjectFile_SccProperties">
+    <SharedProjectFile_ProjectGuid>{6ac24f38-8ca8-410e-a048-3eb5f54c9d1a}</SharedProjectFile_ProjectGuid>
+    <SharedProjectFile_SccProjectName>SAK</SharedProjectFile_SccProjectName>
+    <SharedProjectFile_SccAuxPath>SAK</SharedProjectFile_SccAuxPath>
+    <SharedProjectFile_SccLocalPath>SAK</SharedProjectFile_SccLocalPath>
+    <SharedProjectFile_SccProvider>SAK</SharedProjectFile_SccProvider>
+  </PropertyGroup>
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>a330fa60-96a3-4b8c-bb17-cd1d5fda15d6</SharedGUID>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Content\image\Clear_Filter.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Content\image\Cold.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Content\image\Cold_Filter.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Content\image\Cold_Mobile.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Content\image\Delete32.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Content\image\earth.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Content\image\Hot.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Content\image\Hot_Filter.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Content\image\Hot_Mobile.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Content\image\pencil32.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Content\image\Search.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Content\image\Search24.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Content\image\SearchV2.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Content\image\Warm.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Content\image\Warm_Filter.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)Content\image\Warm_Mobile.jpg" />
+    <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\Constants.js" />
+    <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\Data.js" />
+    <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\Desktop\Display.js" />
+    <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\Desktop\Event.js" />
+    <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\Desktop\Global.js" />
+    <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\LocalStorage.js" />
+    <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\Login.js" />
+    <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\Mobile\Display.js" />
+    <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\Mobile\Events.js" />
+    <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\Mobile\Global.js" />
+    <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\Search.js" />
+    <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\ServerCalls.js" />
+    <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\Session.js" />
+    <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\Utilities.js" />
+    <Content Include="$(MSBuildThisFileDirectory)js\default.js" />
+    <Content Include="$(MSBuildThisFileDirectory)js\jquery-2.0.0.js" />
+  </ItemGroup>
+</Project>

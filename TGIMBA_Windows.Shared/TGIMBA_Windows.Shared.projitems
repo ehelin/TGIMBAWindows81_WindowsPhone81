@@ -36,9 +36,6 @@
     <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\Desktop\Global.js" />
     <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\LocalStorage.js" />
     <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\Login.js" />
-    <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\Mobile\Display.js" />
-    <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\Mobile\Events.js" />
-    <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\Mobile\Global.js" />
     <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\Search.js" />
     <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\ServerCalls.js" />
     <Content Include="$(MSBuildThisFileDirectory)js\BucketListApp\Session.js" />

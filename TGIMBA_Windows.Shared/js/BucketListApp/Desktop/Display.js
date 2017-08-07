@@ -93,6 +93,8 @@ function BuildCategoryFilter() {
 
     filterContainer.html('');
     filterContainer.append(categoryFilter);
+
+    addCategoryEventHandlers();
 }
 function GetCategoryButton(rowCategory) {
     var ratingBtn = '';
@@ -113,10 +115,10 @@ function SetCategoryFilterDisplay() {
 
     categoryFilter = prefix;
 
-    categoryFilter = categoryFilter + "<input type=\"button\" id=\"DesktopHotFilterButton\" name=\"DesktopHotFilterButton\" class=\"BLButtonHotFilter\"  onclick=\"ProcessCategoryFilterEdit(" + 1 + ")\"/>";
-    categoryFilter = categoryFilter + "<input type=\"button\" id=\"DesktopWarmFilterButton\" name=\"DesktopWarmFilterButton\" class=\"BLButtonWarmFilter\" onclick=\"ProcessCategoryFilterEdit(" + 2 + ")\"/>";
-    categoryFilter = categoryFilter + "<input type=\"button\" id=\"DesktopColdFilterButton\" name=\"DesktopColdFilterButton\" class=\"BLButtonColdFilter\" onclick=\"ProcessCategoryFilterEdit(" + 3 + ")\"/>";
-    categoryFilter = categoryFilter + "<input type=\"button\" id=\"DesktopClearFilterButton\" name=\"DesktopClearFilterButton\" class=\"BLButtonClearFilter\" onclick=\"ProcessCategoryFilterEdit(" + 0 + ")\"/>";
+    categoryFilter = categoryFilter + "<input type=\"button\" id=\"DesktopHotFilterButton\" name=\"DesktopHotFilterButton\" class=\"BLButtonHotFilter\" />";
+    categoryFilter = categoryFilter + "<input type=\"button\" id=\"DesktopWarmFilterButton\" name=\"DesktopWarmFilterButton\" class=\"BLButtonWarmFilter\" />";
+    categoryFilter = categoryFilter + "<input type=\"button\" id=\"DesktopColdFilterButton\" name=\"DesktopColdFilterButton\" class=\"BLButtonColdFilter\" />";
+    categoryFilter = categoryFilter + "<input type=\"button\" id=\"DesktopClearFilterButton\" name=\"DesktopClearFilterButton\" class=\"BLButtonClearFilter\" />";
 
     categoryFilter = categoryFilter + suffix;
 
@@ -190,6 +192,8 @@ function DisplayPage(PageToDisplay) {
             $("#SortBucketListOptions").append(GetSortOptions());
             $("#SortBucketListOptions").show();
             $("#Html5JqueryBody").hide();
+
+            addSortEventHandlers()
         }
 
         $("#PageDisplay").show();
@@ -311,9 +315,9 @@ function DisplayEditDesktopBIForm(item, index, addHeaderButtons) {
     var data = item.split(',');
 
     if (addHeaderButtons != null) {
-        bucketEditDisplay = '<input type=\"button\" class=\"BLButtonMenu\" id=\"DesktopAddButton\" name=\"DesktopAddButton\" value=\"Add\" onclick=\"AddBucketListItemClick()\"/>&nbsp;';
-        bucketEditDisplay = bucketEditDisplay + '<input type=\"button\" class=\"BLButtonMenu\" id=\"DesktopEditButton\" name=\"DesktopEditButton\" value=\"Edit\" onclick=\"ProcessEditDetail(' + index + ')\"/>&nbsp;';
-        bucketEditDisplay = bucketEditDisplay + '<input type=\"button\" class=\"BLButtonMenu\" id=\"DesktopDeleteButton\" name=\"DesktopDeleteButton\" value=\"Delete\" onclick=\"ProcessDelete(' + index + ')\"/>';
+        bucketEditDisplay = '<input type=\"button\" class=\"BLButtonMenu\" id=\"DesktopAddButton\" name=\"DesktopAddButton\" value=\"Add\" />&nbsp;';
+        bucketEditDisplay = bucketEditDisplay + '<input type=\"button\" class=\"BLButtonMenu\" id=\"DesktopEditButton' + index + '\" name=\"DesktopEditButton' + index + '\" value=\"Edit\" />&nbsp;';
+        bucketEditDisplay = bucketEditDisplay + '<input type=\"button\" class=\"BLButtonMenu\" id=\"DesktopDeleteButton' + index + '\" name=\"DesktopDeleteButton' + index + '\" value=\"Delete\" />';
     }
 
     bucketEditDisplay = bucketEditDisplay + ADD_ITEM_FORM;
@@ -333,6 +337,20 @@ function DisplayEditDesktopBIForm(item, index, addHeaderButtons) {
     addBIDisplay.append(bucketEditDisplay);
 
     DisplayPage("EditBIItemDesktop");
+}
+
+function addItemEventHandlers(index) {
+    document.getElementById("DesktopAddButton").onclick = function (evt) {
+        AddBucketListItemClick();
+    }
+
+    document.getElementById("DesktopEditButton" + index.toString()).onclick = function (evt) {
+        ProcessEditDetail(currentIndex);
+    }
+
+    document.getElementById("DesktopDeleteButton" + index.toString()).onclick = function (evt) {
+        ProcessDelete(currentIndex);
+    }
 }
 function DisplayEditBIForm(item) {
     ClearBIItemForm();
@@ -373,9 +391,42 @@ function DisplayBucketList(data) {
     listDisplay.append(list);
     listDisplay.show();
 
+    addProcessEditEventHandlers(data, false);
+
     $("#Html5JqueryHeader").show();
     $("#Html5JqueryFooter").show();
 }
+
+function addProcessEditEventHandlers(data, isSearch) {
+    for (var i = 0; i < data.length; i++) {
+        var elementName = '';
+
+        var row = data[i];
+
+        if (row == null || row == "")
+            continue;
+
+        var rowContents = row.split(",");
+
+        //HACK: MS disabled onclick handlers, so this sort of madness is needed :(
+        try {
+            if (isSearch) {
+                var rowIndex = rowContents[rowContents.length - 1];
+
+                document.getElementById('blLinkSearch' + rowIndex.toString()).onclick = function (evt) {
+                    ProcessEdit(rowIndex);
+                }
+            } else {
+                document.getElementById('blLink' + i.toString()).onclick = function (evt) {
+                    ProcessEdit(rowContents[5]);
+                }
+            }
+        } catch (e) {
+            continue;
+        }
+    }
+}
+
 function BuildBucketListDesktop(data) {
     var bucketList = '';
     var tblPrefix = '<table class="DeskTopBucketListTable"><tbody>';
@@ -410,6 +461,7 @@ function BuildBucketListDesktop(data) {
 
     return bucketList;
 }
+
 function AddRowDesktop(bucketList, row, addButtons, index) {
     var innerCount = row.length;
     var currentFilter = SessionGetCategoryFilter();
@@ -422,29 +474,29 @@ function AddRowDesktop(bucketList, row, addButtons, index) {
                 //TODO - filter category code mess...refactor
                 if (currentFilter == 0) {
                     bucketList = bucketList + "<td class=\"DesktopTableCell\" onmouseover=\"LinkCursor(this)\" onmouseout=\"NormalCursor(this)\" id=\"blLink" + index + "\" name=\"blLink" + index + "\">" +
-                              "<a id=\"blAHrefLink" + index + "\" onClick=\"ProcessEdit(" + row[5] + "); return false;\"  >" + (index + 1) + " - "
-                                  + row[innerCtr]
+                                + (index + 1) + " - "
+                                  + row[innerCtr];
 
                     bucketList = bucketList + "<a/>" + "&nbsp;" + GetCategoryButton(rowCategory) + tblCellSuffix;
                 }
 
                 else if (currentFilter == 1 && rowCategory == 'Hot') {
                     bucketList = bucketList + "<td class=\"DesktopTableCell\" onmouseover=\"LinkCursor(this)\" onmouseout=\"NormalCursor(this)\" id=\"blLink" + index + "\" name=\"blLink" + index + "\">" +
-                        "<a onClick=\"ProcessEdit(" + row[5] + "); return false;\"  >" + (index + 1) + " - " + row[innerCtr];
+                         + (index + 1) + " - " + row[innerCtr];
 
                     bucketList = bucketList + "<a/>" + "&nbsp;" + GetCategoryButton(rowCategory) + tblCellSuffix;
                 }
 
                 else if (currentFilter == 2 && rowCategory == 'Warm') {
                     bucketList = bucketList + "<td class=\"DesktopTableCell\" onmouseover=\"LinkCursor(this)\" onmouseout=\"NormalCursor(this)\" id=\"blLink" + index + "\" name=\"blLink" + index + "\">" +
-                        "<a onClick=\"ProcessEdit(" + row[5] + "); return false;\"  >" + (index + 1) + " - " + row[innerCtr];
+                        + (index + 1) + " - " + row[innerCtr];
 
                     bucketList = bucketList + "<a/>" + "&nbsp;" + GetCategoryButton(rowCategory) + tblCellSuffix;
                 }
 
                 else if (currentFilter == 3 && rowCategory == 'Cool') {
                     bucketList = bucketList + "<td class=\"DesktopTableCell\" onmouseover=\"LinkCursor(this)\" onmouseout=\"NormalCursor(this)\" id=\"blLink" + index + "\" name=\"blLink" + index + "\">" +
-                        "<a onClick=\"ProcessEdit(" + row[5] + "); return false;\"  >" + (index + 1) + " - " + row[innerCtr];
+                        + (index + 1) + " - " + row[innerCtr];
 
                     bucketList = bucketList + "<a/>" + "&nbsp;" + GetCategoryButton(rowCategory) + tblCellSuffix;
                 }
@@ -497,6 +549,8 @@ function DisplaySearchResultsMobile(results) {
     dynamicTable = dynamicTable + '<input type=\"button\" class=\"BLButtonMenu\" value=\"Cancel\" id="CancelSearchResultDisplay" name="CancelSearchResultDisplay"/>';
     srchResultsDisplay.append(dynamicTable);
 
+    addProcessEditEventHandlers(results, true);
+
     DisplayPage("SearchResultsMobileDisplay");
 }
 function AddSearchRow(dynamicTable, results, addButtons, rowCounter) {
@@ -516,17 +570,15 @@ function AddSearchRow(dynamicTable, results, addButtons, rowCounter) {
 
     if (curResult != null && curResult != '')
         dynamicTable = dynamicTable
-                    + "<td class=\"DesktopTableCellSearch\" onmouseover=\"LinkCursorSearch(this)\" onmouseout=\"NormalCursorSearch(this)\" id=\"blLink" + listIndex + "\" name=\"blLink" + listIndex + "\">" +
-                                "<a id=\"ProcessEdit" + rowCounter + "\" name=\"ProcessEdit" + rowCounter + "\" onClick=\"ProcessEdit(" + listIndex + "); return false;\"  >"
+                    + "<td class=\"DesktopTableCellSearch\" onmouseover=\"LinkCursorSearch(this)\" onmouseout=\"NormalCursorSearch(this)\" id=\"blLinkSearch" + listIndex + "\" name=\"blLinkSearch" + listIndex + "\">"
                         + curResult
                         + "<a/>" + "&nbsp;"
                             + tblCellSuffix;
 
     if (addButtons == 'false' && (curResult == null || curResult == ''))
         dynamicTable = dynamicTable
-        + "<td class=\"DesktopTableCellSearch\" onmouseover=\"LinkCursorSearch(this)\" onmouseout=\"NormalCursorSearch(this)\" id=\"blLink" + listIndex + "\" name=\"blLink" + listIndex + "\">" +
-                    "<a id=\"ProcessEdit" + rowCounter + "\" name=\"ProcessEdit" + rowCounter + "\" onClick=\"ProcessEdit(" + listIndex + "); return false;\"  >"
-                        + curResult
+        + "<td class=\"DesktopTableCellSearch\" onmouseover=\"LinkCursorSearch(this)\" onmouseout=\"NormalCursorSearch(this)\" id=\"blLinkSearch" + listIndex + "\" name=\"blLinkSearch" + listIndex + "\">"
+                      + curResult
                         + "<a/>" + "&nbsp;"
                             + tblCellSuffix;
 

@@ -7,9 +7,6 @@
     $("#LogOut").unbind("click").bind("click", LogoutItemClick);
 
     //add bi screen events
-    $("#CancelAddItemDisplay").unbind("click").bind("click", GlobalCancelEventClick);
-
-    //edit screen events
     $("#EditBIButtonSubmit").unbind("click").bind("click", EditBIButtonSubmitClick);
 
     //search events
@@ -209,6 +206,21 @@ function ProcessDelete(index) {
 }
 
 //category events ---------------------------------------
+function addCategoryEventHandlers() {
+    document.getElementById("DesktopHotFilterButton").onclick = function (evt) {
+        ProcessCategoryFilterEdit(1);
+    }
+    document.getElementById("DesktopWarmFilterButton").onclick = function (evt) {
+        ProcessCategoryFilterEdit(2);
+    }
+    document.getElementById("DesktopColdFilterButton").onclick = function (evt) {
+        ProcessCategoryFilterEdit(3);
+    }
+    document.getElementById("DesktopClearFilterButton").onclick = function (evt) {
+        ProcessCategoryFilterEdit(0);
+    }
+}
+
 function ProcessCategoryFilterEdit(index) {
     var userName = GetLocalStorageBucketList(DESKTOP_LOCAL_STORAGE_UserName);
     var token = GetLocalStorageBucketList(DESKTOP_LOCAL_STORAGE_Token);

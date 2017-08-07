@@ -5717,9 +5717,7 @@
                         // Deserialize a standard representation
                         tag = (rtagName.exec(elem) || ["", ""])[1].toLowerCase();
                         wrap = wrapMap[tag] || wrapMap._default;
-                        MSApp.execUnsafeLocalFunction(function () {
-                            tmp.innerHTML = wrap[1] + elem.replace(rxhtmlTag, "<$1></$2>") + wrap[2];
-                        });
+                        tmp.innerHTML = wrap[1] + elem.replace(rxhtmlTag, "<$1></$2>") + wrap[2];
 
                         // Descend through wrappers to the right content
                         j = wrap[0];

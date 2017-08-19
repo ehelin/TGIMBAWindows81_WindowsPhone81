@@ -336,20 +336,32 @@ function DisplayEditDesktopBIForm(item, index, addHeaderButtons) {
 
     addBIDisplay.append(bucketEditDisplay);
 
+    addItemEventHandlers(index);
+
     DisplayPage("EditBIItemDesktop");
 }
 
+// TODO - refactor this mess
 function addItemEventHandlers(index) {
-    document.getElementById("DesktopAddButton").onclick = function (evt) {
-        AddBucketListItemClick();
+    var button1 = document.getElementById("DesktopAddButton");
+    if (button1 != null) {
+        button1.onclick = function (evt) {
+            AddBucketListItemClick();
+        }
+    }
+    
+    var button2 = document.getElementById("DesktopEditButton" + index.toString());
+    if (button2 != null) {
+        button2.onclick = function (evt) {
+            ProcessEditDetail(index);
+        }
     }
 
-    document.getElementById("DesktopEditButton" + index.toString()).onclick = function (evt) {
-        ProcessEditDetail(currentIndex);
-    }
-
-    document.getElementById("DesktopDeleteButton" + index.toString()).onclick = function (evt) {
-        ProcessDelete(currentIndex);
+    var button3 = document.getElementById("DesktopDeleteButton" + index.toString());
+    if (button3 != null) {
+        button3.onclick = function (evt) {
+            ProcessDelete(index);
+        }
     }
 }
 function DisplayEditBIForm(item) {
@@ -396,7 +408,6 @@ function DisplayBucketList(data) {
     $("#Html5JqueryHeader").show();
     $("#Html5JqueryFooter").show();
 }
-
 function addProcessEditEventHandlers(data, isSearch) {
     for (var i = 0; i < data.length; i++) {
         var elementName = '';
@@ -426,7 +437,6 @@ function addProcessEditEventHandlers(data, isSearch) {
         }
     }
 }
-
 function BuildBucketListDesktop(data) {
     var bucketList = '';
     var tblPrefix = '<table class="DeskTopBucketListTable"><tbody>';
@@ -461,7 +471,6 @@ function BuildBucketListDesktop(data) {
 
     return bucketList;
 }
-
 function AddRowDesktop(bucketList, row, addButtons, index) {
     var innerCount = row.length;
     var currentFilter = SessionGetCategoryFilter();
@@ -592,7 +601,6 @@ function LinkCursorSearch(link) {
     link.css('background-color', '#cbe9ef');
     link.css('cursor', 'pointer');
 }
-
 function NormalCursorSearch(link) {
     var name = link.id;
     var link = $("#" + name);

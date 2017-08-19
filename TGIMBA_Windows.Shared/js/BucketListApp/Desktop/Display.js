@@ -448,8 +448,9 @@ function BuildBucketListDesktop(data) {
     var tblRowSuffix = '</tr>';
     var tblSuffix = '</tbody></table>';
 
-    bucketList = tblPrefix;
     var outerCount = data.length;
+    var tableRows = '';
+
     for (var outerCtr = 0; outerCtr < outerCount; outerCtr++) {
         var row = data[outerCtr];
 
@@ -460,14 +461,19 @@ function BuildBucketListDesktop(data) {
         if (outerCtr > 0)
             addButtons = 1;
 
-        bucketList = bucketList + tblRowPrefix;
+        var curRow = tblRowPrefix;
+        curRow = curRow + AddRowDesktop(bucketList, row, addButtons, outerCtr);
+        curRow = curRow + tblRowSuffix;
 
-        bucketList = AddRowDesktop(bucketList, row, addButtons, outerCtr);
+        // HACK: prevent empty rows why using a sorting category
+        if (curRow === "<tr></tr>") {
+            continue;
+        }
 
-        bucketList = bucketList + tblRowSuffix;
+        tableRows = tableRows + curRow;
     }
 
-    bucketList = bucketList + tblSuffix;
+    bucketList = tblPrefix + tableRows + tblSuffix;
 
     return bucketList;
 }

@@ -50,10 +50,10 @@ function ValidateGoodRegistrationValues(user, email, pass, confirmPass) {
         regValidationMsg = 'Please type password in the confirmation field';
 
     else if (regValidationMsg == null && user.length < 8)
-        regValidationMsg = 'Username must be at leasth 8 characters in length';
+        regValidationMsg = 'Username must be at least 8 characters in length';
 
     else if (regValidationMsg == null && pass.length < 8)
-        regValidationMsg = 'Password must be at leasth 8 characters in length';
+        regValidationMsg = 'Password must be at least 8 characters in length';
 
     else if (regValidationMsg == null && !ContainsOneNumber(pass))
         regValidationMsg = 'Password must contain at least one number';

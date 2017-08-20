@@ -105,16 +105,16 @@ function GetSortOptions() {
 
 function addSortEventHandlers() {
     document.getElementById("SortBtnTitle").onclick = function (evt) {
-        ProcessSort(SORTING_OPTIONS.RANKING);
+        ProcessSort(SORTING_OPTIONS.TITLE);
     }
     document.getElementById("SortBtnRanking").onclick = function (evt) {
-        ProcessSort(SORTING_OPTIONS.ACHIEVED);
+        ProcessSort(SORTING_OPTIONS.RANKING);
     }
     document.getElementById("SortBtnAchieved").onclick = function (evt) {
-        ProcessSort(SORTING_OPTIONS.ENTERED);
+        ProcessSort(SORTING_OPTIONS.ACHIEVED);
     }
     document.getElementById("SortBtnEntered").onclick = function (evt) {
-        ProcessSort(0);
+        ProcessSort(SORTING_OPTIONS.ENTERED);
     }
 
     document.getElementById("SortBtnClearSort").onclick = function (evt) {

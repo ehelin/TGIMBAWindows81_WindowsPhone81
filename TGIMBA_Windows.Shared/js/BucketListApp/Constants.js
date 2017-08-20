@@ -4,7 +4,8 @@
     COLD: 'Cold'
 }
 
-var REST_SVC = "http://www.tgimba.com/";
+var REST_SVC = "http://www.tgimba.com";
+var REST_SVC_HTTPS = "https://www.tgimba.com";
 
 var ONE = 1;
 

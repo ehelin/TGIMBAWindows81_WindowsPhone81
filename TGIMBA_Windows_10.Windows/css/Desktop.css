@@ -106,7 +106,7 @@
     font-size:large;
 }
 .SearchResultsDisplayMobileTable{
-    height:500px;
+    height:100px;
     overflow-y: scroll;
     text-align:center;
     font-size:large;
